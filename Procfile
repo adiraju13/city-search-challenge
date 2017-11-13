@@ -1,1 +1,1 @@
-web: gunicorn app:city_search_app
+web: gunicorn city_search_app:app
