@@ -21,11 +21,17 @@ def home_page():
 
 @app.route('/closest-neighbors',  methods=['POST'])
 def closest_neighbors():
-	return c.get_closest_points(int(request.form['geo_id']), int(request.form['neighbors']))
+	#if (request.form['geo_id'])
+	if len(str(request.form['geo_id']).strip()) == 0 or len(str(request.form['neighbors']).strip()) == 0:
+		return "Please enter numbers into the fields"
+
+	return c.get_closest_points(int(request.form['geo_id'].strip()), int(request.form['neighbors']).strip())
 
 @app.route('/search',  methods=['POST'])
 def search():
-	return c.search(request.form['search'])
+	if len(str(request.form['search']).strip()) == 0:
+		return "please enter a search query"
+	return c.search(request.form['search'].strip())
 
 if __name__=='__main__':
     app.run(debug=False)
