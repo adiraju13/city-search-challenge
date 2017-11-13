@@ -18,6 +18,14 @@ class CityInformation:
 		#dictionary of geo_id to ordered list of areas by distance
 		self.distance_between_locations = {}
 
+	def search(self, search_query):
+		search_query = search_query.encode('utf-8')
+		resulting_string = "Here are your search results (although we search across alternate names as well, only master names are shown): <br><br>"
+		for row in self.data.itertuples(index=True):
+			#takes care of jagged edges
+			if (isinstance(row.name, basestring) and search_query in row.name) or (isinstance(row.alternate_names, basestring) and search_query in row.alternate_names):
+				resulting_string += "Geo_id: " + str(row.Index) + " Master Name: " + row.name + " Latitude: " + str(row.latitude) + " Longitude: " + str(row.longitude) + "<br>"
+		return resulting_string
 
 
 	def order_other_locations(self, index_of_interest, lat1, lon1):
