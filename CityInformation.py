@@ -17,13 +17,7 @@ class CityInformation:
 
 		#dictionary of geo_id to ordered list of areas by distance
 		self.distance_between_locations = {}
-		#precompute the distances before the server starts up so that 
-		#querying for the closest neighbors is quick
-		self.setup_distances()
 
-	def setup_distances(self):
-		for row in self.data.itertuples():
-			self.order_other_locations(row.Index, row.latitude, row.longitude)
 
 
 	def order_other_locations(self, index_of_interest, lat1, lon1):
@@ -37,8 +31,17 @@ class CityInformation:
 
 	def get_closest_points(self, geo_id, k):
 		resulting_string = ""
+		if geo_id not in self.data.index:
+			return "This geo_id is not valid! We do not have information on it"
+
+		# add a caching layer so that things we do not recompute distances!
+		if geo_id not in self.distance_between_locations.keys():
+			self.order_other_locations(geo_id, self.data.loc[geo_id]["latitude"], self.data.loc[geo_id]["longitude"])
+
+		resulting_string += "The " + str(k) + " closest places to geo_id " + str(geo_id) + " are:<br><br>" 
+		#add the info we want to display to the output string
 		for i in range(0, k):
-			resulting_string += self[self.distance_between_locations[geo_id][i][0]]["name"] + " " + self.distance_between_locations[geo_id][i][1] + " km away\n"
+			resulting_string += self.data.loc[self.distance_between_locations[geo_id][i][0]]["name"] + " " + str(self.distance_between_locations[geo_id][i][1]) + " km away<br>"
 
 		return resulting_string
 		
