@@ -20,7 +20,7 @@ class CityInformation:
 
 	def search(self, search_query):
 		search_query = search_query.encode('utf-8')
-		print search_query
+		
 		resulting_string = "Here are your search results (although we search across alternate names as well, only master names are shown): <br><br>"
 		for row in self.data.itertuples(index=True):
 			#takes care of jagged edges
