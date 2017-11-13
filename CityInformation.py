@@ -23,7 +23,7 @@ class CityInformation:
 		resulting_string = "Here are your search results (although we search across alternate names as well, only master names are shown): <br><br>"
 		for row in self.data.itertuples(index=True):
 			#takes care of jagged edges
-			if (isinstance(row.name, basestring) and search_query in row.name) or (isinstance(row.alternate_names, basestring) and search_query in row.alternate_names):
+			if (isinstance(row.name, str) and search_query in row.name) or (isinstance(row.alternate_names, str) and search_query in row.alternate_names):
 				resulting_string += "Geo_id: " + str(row.Index) + " Master Name: " + row.name + " Latitude: " + str(row.latitude) + " Longitude: " + str(row.longitude) + "<br>"
 		return resulting_string
 
