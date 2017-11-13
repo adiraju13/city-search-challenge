@@ -1,5 +1,7 @@
+from CityInformation import CityInformation
 from flask import Flask
 app = Flask(__name__)
+c = CityInformation()
 
 @app.route('/')
 def home_page():
