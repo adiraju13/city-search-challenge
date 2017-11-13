@@ -54,7 +54,6 @@ scipy==0.18.1
 simplegeneric==0.8.1
 singledispatch==3.4.0.3
 six==1.10.0
-subprocess32==3.2.7
 sympy==1.0
 terminado==0.6
 testpath==0.3
