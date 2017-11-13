@@ -6,7 +6,7 @@ import operator
 class CityInformation:
 	#read the data in from the file into a dataframe
 	def __init__(self):
-		self.data = pd.read_table('cities1000.txt')
+		self.data = pd.read_table('cities1000.txt', header=None)
 		self.data.columns = ['geo_id', 'name', 'ascii_name', 'alternate_names', 
 						'latitude', 'longitude', 'feature_class', 'feature_code', 
 						'country_code', 'cc2', 'admin1code', 'admin2code',

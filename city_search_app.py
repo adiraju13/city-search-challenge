@@ -25,7 +25,7 @@ def closest_neighbors():
 	if len(str(request.form['geo_id']).strip()) == 0 or len(str(request.form['neighbors']).strip()) == 0:
 		return "Please enter numbers into the fields"
 
-	return c.get_closest_points(int(request.form['geo_id'].strip()), int(request.form['neighbors']).strip())
+	return c.get_closest_points(int(request.form['geo_id'].strip()), int(request.form['neighbors'].strip()))
 
 @app.route('/search',  methods=['POST'])
 def search():
