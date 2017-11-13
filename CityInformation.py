@@ -18,28 +18,29 @@ class CityInformation:
 		#dictionary of geo_id to ordered list of areas by distance
 		self.distance_between_locations = {}
 
+	#searches through each row to see if the query exists as a substring int he name or alternate name fields
+	#returns the relevant information as a string to be printed to the front end
 	def search(self, search_query):
 		search_query = str(search_query)
 
 		resulting_string = "Here are your search results (although we search across alternate names as well, only master names are shown): <br><br>"
 		for row in self.data.itertuples(index=True):
 			#takes care of jagged edges
-			#print row.name
-			#print row.alternate_names
 			if (isinstance(row.name, str) and str(row.name).find(search_query) != -1) or (isinstance(row.alternate_names, str) and str(row.alternate_names).find(search_query) != -1):
 				resulting_string += "Geo_id: " + str(row.Index) + " Master Name: " + row.name + " Latitude: " + str(row.latitude) + " Longitude: " + str(row.longitude) + "<br>"
 		return resulting_string
 
-
+	#sort other locations by their distances from the point, and add those locations to the dictionary
 	def order_other_locations(self, index_of_interest, lat1, lon1):
 		distances = []
 		for row in self.data.itertuples(index=True):
 			if row.Index != index_of_interest:
 				distance = self.distance_between_points(lat1, lon1, row.latitude, row.longitude)
 				distances.append([row.Index, distance])
-		
+
 		self.distance_between_locations[index_of_interest] = sorted(distances, key=operator.itemgetter(1))
 
+	#returns the k closest locations to the geo_id provided
 	def get_closest_points(self, geo_id, k):
 		resulting_string = ""
 		if geo_id not in self.data.index:

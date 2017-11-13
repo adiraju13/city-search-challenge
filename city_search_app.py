@@ -21,7 +21,7 @@ def home_page():
 
 @app.route('/closest-neighbors',  methods=['POST'])
 def closest_neighbors():
-	#if (request.form['geo_id'])
+	#front end enforces that these have to be numbers in the post request
 	if len(str(request.form['geo_id']).strip()) == 0 or len(str(request.form['neighbors']).strip()) == 0:
 		return "Please enter numbers into the fields"
 
